@@ -13,7 +13,7 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, window.innerWidth <= 560 ? 1.25 : 1.5));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.6;
+  renderer.toneMappingExposure = 1.05;
   renderer.setClearColor(0x000000, 0);
   renderer.domElement.setAttribute('aria-hidden', 'true');
   container.appendChild(renderer.domElement);
@@ -25,15 +25,16 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
   const room = new RoomEnvironment();
   const environment = pmrem.fromScene(room, .04, .1, 100, { size: 128 });
   scene.environment = environment.texture;
+  scene.environmentIntensity = .85;
   room.dispose();
   pmrem.dispose();
 
-  scene.add(new THREE.AmbientLight('#e5ead6', 1.5));
-  const key = new THREE.DirectionalLight('#fff6dc', 4);
+  scene.add(new THREE.AmbientLight('#e5ead6', .35));
+  const key = new THREE.DirectionalLight('#fff6dc', 2.3);
   key.position.set(-4, 5, 7); scene.add(key);
-  const fill = new THREE.DirectionalLight('#b8d1c9', 2.8);
+  const fill = new THREE.DirectionalLight('#b8d1c9', 1.4);
   fill.position.set(5, -2, 5); scene.add(fill);
-  const rim = new THREE.DirectionalLight('#c4b28b', 2.0);
+  const rim = new THREE.DirectionalLight('#c4b28b', 1.6);
   rim.position.set(-3, 1, -5); scene.add(rim);
 
   const watch = createWatch({ compact: anatomy });

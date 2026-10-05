@@ -331,7 +331,7 @@ h2 { font-size: clamp(40px, 4.3vw, 68px); font-weight: 400; line-height: 1.1; le
   .header-cta { font-size: 10px; padding: 10px 12px; }
   .header-cta span { margin-left: 10px; }
   .menu-button { display: block; }
-  .mobile-menu { display: flex; flex-direction: column; justify-content: center; position: fixed; inset: 0; z-index: 25; background: #131716f9; padding: 100px 8%; opacity: 0; visibility: hidden; transition: opacity .35s, visibility .35s; }
+  .mobile-menu { display: flex; flex-direction: column; justify-content: center; position: fixed; inset: 0; z-index: 25; background: #131716f9; padding: 100px 8%; opacity: 0; visibility: hidden; transition: opacity .35s; }
   .mobile-menu.open { visibility: visible; opacity: 1; }
   .mobile-menu > a { display: flex; align-items: center; gap: 18px; font-size: 32px; padding: 24px 0; border-bottom: 1px solid var(--line); }
   .mobile-menu > a > .mono { font-size: 9px; color: var(--gold); }
@@ -402,7 +402,7 @@ h2 { font-size: clamp(40px, 4.3vw, 68px); font-weight: 400; line-height: 1.1; le
   .site-header { height: 76px; }
   .header-cta { display: none; }
   .header-actions { gap: 22px; }
-  .hero { height: 940px; min-height: 940px; max-height: none; }
+  .hero { height: 1040px; min-height: 1040px; max-height: none; }
   .hero-topline { top: 101px; font-size: 6px; letter-spacing: .9px; }
   .hero-copy { top: 160px; left: 7%; width: 89%; }
   .hero-copy .eyebrow { margin-bottom: 21px; }

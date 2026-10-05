@@ -2,9 +2,8 @@ import { test, expect } from '@playwright/test';
 
 async function openExperience(page) {
   await page.goto('/', { waitUntil: 'domcontentloaded' });
-  const skip = page.getByRole('button', { name: /skip intro/i });
-  if (await skip.isVisible()) await skip.click();
-  await expect(page.locator('#loader')).toHaveCount(0, { timeout: 15000 });
+  // Verify the automatic opening instead of racing a disappearing skip button.
+  await expect(page.locator('#loader')).toHaveCount(0, { timeout: 30000 });
 }
 
 async function scrollMechanics(page, progress) {
@@ -32,7 +31,7 @@ test('opens a working local 3D scene with no runtime errors or missing local ass
   expect(missing).toEqual([]);
 });
 
-test('watch disassembles and reassembles through reversible scroll positions', async ({ page }) => {
+test('watch disassembles and reassembles through reversible scroll positions', async ({ page }, testInfo) => {
   await openExperience(page);
   await scrollMechanics(page, .05);
   await expect(page.locator('#assembly-state')).toHaveText('ASSEMBLED');
@@ -41,6 +40,7 @@ test('watch disassembles and reassembles through reversible scroll positions', a
   await expect(page.locator('#assembly-percent')).toHaveText('0');
   await expect(page.locator('#anatomy-stage')).toHaveClass(/has-webgl/);
   await expect.poll(async () => Number(await page.locator('#anatomy-stage').getAttribute('data-layer-separation'))).toBeGreaterThan(4);
+  await page.screenshot({ path: testInfo.outputPath('watch-disassembled.png'), animations: 'disabled' });
   await scrollMechanics(page, .97);
   await expect(page.locator('#assembly-state')).toHaveText('ASSEMBLED');
   await expect(page.locator('#assembly-percent')).toHaveText('100');
@@ -79,10 +79,12 @@ test('milestone tabs support click and keyboard navigation with correct sources'
   await expect(page.getByRole('tab', { name: /1601/ })).toHaveAttribute('aria-selected', 'true');
 });
 
-test('mobile menu, focus recovery, local photographs, and layout remain usable', async ({ page }) => {
+test('mobile menu, focus recovery, local photographs, and layout remain usable', async ({ page }, testInfo) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await openExperience(page);
-  const menu = page.getByRole('button', { name: 'Open navigation' });
+  await page.screenshot({ path: testInfo.outputPath('mobile-hero.png'), animations: 'disabled' });
+  const menu = page.locator('#menu-button');
+  await expect(menu).toHaveAttribute('aria-label', 'Open navigation');
   await menu.click();
   await expect(menu).toHaveAttribute('aria-expanded', 'true');
   await expect(page.locator('#mobile-menu a').first()).toBeFocused();
