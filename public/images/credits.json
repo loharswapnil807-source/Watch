@@ -1,0 +1,14 @@
+{
+  "jura.jpg": {
+    "source": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b",
+    "credit": "Unsplash alpine landscape. An illustrative mood image, not documentary photography of a specific Jura location."
+  },
+  "apollo.jpg": {
+    "source": "https://www.argoswatch.in/cdn/shop/files/ogs-l_wristshot_new.jpg?v=1771495563&width=900",
+    "credit": "Argos Watches. Apollo III olive green silver leather wrist photograph."
+  },
+  "olympus.jpg": {
+    "source": "https://www.argoswatch.in/cdn/shop/files/Olympus_Luxe_White_Silver2.jpg?v=1771496070&width=900",
+    "credit": "Argos Watches. Olympus Luxe White Silver product photograph."
+  }
+}

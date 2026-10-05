@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#131716" />
+    <meta name="description" content="The Continuum of Time. An immersive exploration of Swiss watchmaking heritage, India's mechanical legacy, and the new chapter of Argos Watches." />
+    <meta property="og:title" content="The Continuum of Time — A study in mechanical heritage" />
+    <meta property="og:description" content="From the Jura mountains to Surat. Explore the craft, discover the history, and take a mechanical watch apart with a scroll." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/italiana-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <title>The Continuum of Time — Swiss heritage. Indian spirit.</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#heritage">Skip to the story</a>
+
+    <div class="loader" id="loader">
+      <div class="loader-band loader-band--top"></div>
+      <div class="loader-band loader-band--bottom"></div>
+      <div class="loader-content" aria-hidden="true">
+        <div class="loader-orbit"><span></span></div>
+        <div class="loader-wordmark">CONTINUUM<span>OF TIME</span></div>
+        <div class="loader-readout mono"><span>CALIBRATING THE ARCHIVE</span><span id="loading-percent">00%</span></div>
+        <div class="loader-track"><div id="loading-bar"></div></div>
+      </div>
+      <button class="loader-skip mono" id="skip-intro" type="button">SKIP INTRO <span>↗</span></button>
+    </div>
+
+    <header class="site-header" id="site-header">
+      <a class="brand" href="#home" aria-label="Continuum of Time home">
+        <svg class="brand-symbol" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M16 3v5m0 16v5M3 16h5m16 0h5M16 10v6l5 3"/><circle cx="16" cy="16" r="1.5"/></svg>
+        <span>CONTINUUM<span class="brand-sub">OF TIME</span></span>
+      </a>
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#heritage" data-nav="heritage">The heritage</a>
+        <a href="#mechanics" data-nav="mechanics">The mechanics</a>
+        <a href="#argos" data-nav="argos">The new chapter</a>
+      </nav>
+      <div class="header-actions">
+        <button class="sound-button" id="sound-button" type="button" aria-label="Enable mechanical ambience" aria-pressed="false"><span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="mono">SOUND OFF</span></button>
+        <a class="header-cta" href="https://www.argoswatch.in/" target="_blank" rel="noopener noreferrer">Discover Argos <span>↗</span></a>
+        <button class="menu-button" id="menu-button" aria-label="Open navigation" aria-expanded="false" aria-controls="mobile-menu" type="button"><span></span><span></span></button>
+      </div>
+    </header>
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" inert>
+      <a href="#heritage"><span class="mono">01</span>The heritage <span>↗</span></a>
+      <a href="#mechanics"><span class="mono">02</span>The mechanics <span>↗</span></a>
+      <a href="#argos"><span class="mono">03</span>The new chapter <span>↗</span></a>
+      <a href="https://www.argoswatch.in/" target="_blank" rel="noopener noreferrer">Discover Argos <span>↗</span></a>
+      <p class="mono">A STUDY IN MECHANICAL HERITAGE</p>
+    </nav>
+
+    <main>
+      <section class="hero" id="home" aria-labelledby="hero-heading">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-topline mono"><span><i class="status-dot"></i> AN INDEPENDENT HOROLOGICAL EXPLORATION</span><span>EST. IN CRAFT. BUILT FOR TOMORROW.</span></div>
+        <div class="hero-copy">
+          <div class="eyebrow reveal"><span class="small-line"></span> SWISS HERITAGE. INDIAN SPIRIT.</div>
+          <h1 id="hero-heading" class="reveal">Time is a<br />story.<br /><em>Wear yours.</em></h1>
+          <p class="hero-description reveal">Centuries of precision. A new generation of possibility.<br class="desktop-break" /> A journey from the Jura mountains to the heart of India.</p>
+          <a class="circle-link reveal" href="#heritage"><span class="circle-arrow">↓</span><span>Explore the continuum<span class="mono">SCROLL TO BEGIN</span></span></a>
+        </div>
+        <div class="hero-watch-stage" id="hero-watch-stage" role="img" aria-label="Interactive three-dimensional mechanical watch with a dark green dial and steel bracelet">
+          <div class="stage-orbit orbit-one" aria-hidden="true"></div>
+          <div class="stage-orbit orbit-two" aria-hidden="true"></div>
+          <div class="stage-cross cross-one" aria-hidden="true">+</div>
+          <div class="stage-cross cross-two" aria-hidden="true">+</div>
+          <div class="watch-fallback" aria-hidden="true"><div class="fallback-strap"></div><div class="fallback-dial"><span>ARGOS</span><i></i><b></b></div></div>
+          <div class="watch-caption mono"><span><i class="status-dot"></i> THE MECHANICAL STUDY</span><span>AN ORIGINAL 3D INTERPRETATION</span></div>
+        </div>
+        <div class="hero-bottom mono"><span>01 / ORIGINS & POSSIBILITIES</span><span class="hero-coordinate">46°12′ N &nbsp; 6°09′ E <span class="coordinate-line"></span> 21°10′ N &nbsp; 72°49′ E</span><a href="#mechanics">BUILT TO BE TAKEN APART <span>↗</span></a></div>
+      </section>
+
+      <div class="heritage-strip" aria-hidden="true"><span>PRECISION IS A TRADITION</span><i>✳</i><span>CRAFT IS A LANGUAGE</span><i>✳</i><span>TIME CONNECTS US</span><i>✳</i><span>THE STORY CONTINUES</span><i>✳</i></div>
+
+      <section class="heritage section-pad" id="heritage" aria-labelledby="heritage-heading">
+        <div class="section-top reveal"><span class="eyebrow">01 — THE HERITAGE</span><span class="mono muted">GENEVA → JURA → THE WORLD</span></div>
+        <div class="section-heading reveal"><h2 id="heritage-heading">Before it was a watch,<br />it was <em>a way of life.</em></h2><p>In quiet workshops and mountain valleys, a culture of patience became the world's language of precision.</p></div>
+        <div class="heritage-feature">
+          <div class="heritage-image reveal">
+            <img src="/images/jura.jpg" alt="Clouds above a mountain valley, an illustrative impression of the solitude behind watchmaking" loading="lazy" width="1500" height="1000" />
+            <div class="image-shade"></div>
+            <span class="image-label mono">MOUNTAIN SOLITUDE · AN IMPRESSION OF CRAFT</span>
+            <div class="image-title">Where patience<br />became <em>precision.</em></div>
+            <span class="image-coordinates mono">47°06′ N / 6°49′ E</span>
+          </div>
+          <div class="heritage-card reveal">
+            <div class="card-top mono"><span>THE BEGINNING</span><span>CH. 001</span></div>
+            <div class="heritage-year">1541<span>GENEVA, SWITZERLAND</span></div>
+            <h3>A different kind<br />of precious.</h3>
+            <p>As Geneva's goldsmiths turned toward watchmaking, a new form of artistry emerged. Ornament gave way to ingenuity. Beauty found its purpose in precision.</p>
+            <p class="secondary-copy">By 1601, Geneva had its own watchmakers' guild. In the generations that followed, the craft travelled into the Jura mountains.</p>
+            <a class="text-link" href="https://www.fhs.swiss/eng/origins.html" target="_blank" rel="noopener noreferrer">Explore the origins <span>↗</span></a>
+          </div>
+        </div>
+
+        <div class="timeline-heading reveal"><h3>Not a moment.<br /><em>A continuum.</em></h3><span class="mono muted">SELECT A MILESTONE TO EXPLORE</span></div>
+        <div class="timeline-tabs" role="tablist" aria-label="Watchmaking milestones">
+          <button id="tab-1601" class="timeline-tab active" type="button" role="tab" aria-selected="true" aria-controls="timeline-panel" data-year="1601"><span class="timeline-dot"></span><span>1601</span><small>THE GUILD</small></button>
+          <button id="tab-1770" class="timeline-tab" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" tabindex="-1" data-year="1770"><span class="timeline-dot"></span><span>1770</span><small>SELF-WINDING</small></button>
+          <button id="tab-1842" class="timeline-tab" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" tabindex="-1" data-year="1842"><span class="timeline-dot"></span><span>1842</span><small>THE CROWN</small></button>
+          <button id="tab-1961" class="timeline-tab" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" tabindex="-1" data-year="1961"><span class="timeline-dot"></span><span>1961</span><small>INDIA'S CHAPTER</small></button>
+          <button id="tab-2022" class="timeline-tab" type="button" role="tab" aria-selected="false" aria-controls="timeline-panel" tabindex="-1" data-year="2022"><span class="timeline-dot"></span><span>2022</span><small>A NEW GENERATION</small></button>
+        </div>
+        <div class="timeline-panel" id="timeline-panel" role="tabpanel" aria-labelledby="tab-1601" tabindex="0">
+          <span class="timeline-panel-year" id="timeline-year">1601</span>
+          <div><span class="eyebrow" id="timeline-location">GENEVA, SWITZERLAND</span><h4 id="timeline-title">Craft becomes a collective.</h4><p id="timeline-description">The Watchmakers Guild of Geneva is established. What began at individual workbenches becomes a shared tradition of skill, standards, and knowledge passed from one generation to the next.</p></div>
+          <a class="circle-arrow" id="timeline-source" href="https://www.fhs.swiss/eng/origins.html" target="_blank" rel="noopener noreferrer" aria-label="Read the source for this milestone">↗</a>
+        </div>
+      </section>
+
+      <section class="mechanics" id="mechanics" aria-labelledby="mechanics-heading">
+        <div class="mechanics-sticky">
+          <div class="section-top"><span class="eyebrow">02 — THE MECHANICS</span><span class="mono muted">SCROLL TO DISASSEMBLE. CONTINUE TO REBUILD.</span></div>
+          <div class="mechanics-layout">
+            <div class="mechanics-copy">
+              <span class="eyebrow gold" id="mechanics-step">001 / THE COMPLETE OBJECT</span>
+              <h2 id="mechanics-heading">A world within.<br /><em>Piece by piece.</em></h2>
+              <p id="mechanics-description">A mechanical watch is a tiny universe in perfect balance. Scroll to lift the crystal, separate the dial, and discover the movement at its heart.</p>
+              <div class="component-list" aria-label="Watch components">
+                <div class="component-row active" data-component="0"><span class="mono">01</span><span>The crystal</span><span class="component-state mono">PROTECTION</span></div>
+                <div class="component-row" data-component="1"><span class="mono">02</span><span>The dial & hands</span><span class="component-state mono">EXPRESSION</span></div>
+                <div class="component-row" data-component="2"><span class="mono">03</span><span>The movement</span><span class="component-state mono">THE HEART</span></div>
+                <div class="component-row" data-component="3"><span class="mono">04</span><span>The case</span><span class="component-state mono">STRUCTURE</span></div>
+              </div>
+              <div class="assembly-readout mono"><span id="assembly-state">ASSEMBLED</span><span><b id="assembly-percent">100</b>% IN HARMONY</span></div>
+              <div class="assembly-track"><div id="assembly-bar"></div></div>
+            </div>
+            <div class="anatomy-stage" id="anatomy-stage" role="group" aria-label="Scroll-controlled exploded view of a mechanical watch that opens into its components and then reassembles">
+              <div class="anatomy-orbit" aria-hidden="true"></div>
+              <div class="watch-fallback" aria-hidden="true"><div class="fallback-dial"><span>ARGOS</span><i></i><b></b></div></div>
+              <span class="anatomy-caption mono">MECHANICAL STUDY / EXPLODED VIEW</span>
+              <button class="anatomy-control mono" id="assembly-toggle" type="button" aria-pressed="false">PREVIEW DISASSEMBLY <span>↗</span></button>
+            </div>
+          </div>
+          <div class="mechanics-bottom mono"><span>AN INTERPRETIVE MODEL · NOT A MANUFACTURING DIAGRAM</span><div class="chapter-progress"><i class="active"></i><i></i><i></i><i></i></div><span id="mechanics-progress-label">01 / 04</span></div>
+        </div>
+      </section>
+
+      <section class="india section-pad" id="india" aria-labelledby="india-heading">
+        <div class="section-top reveal"><span class="eyebrow">03 — A DIFFERENT KIND OF LEGACY</span><span class="mono muted">BENGALURU, INDIA · 1961</span></div>
+        <div class="india-layout">
+          <div class="india-copy reveal"><span class="india-marker" aria-hidden="true">IN</span><h2 id="india-heading">Precision found<br />a new <em>purpose.</em></h2><p class="india-lead">In India, the watch became more than a measure of time. It became a symbol of possibility.</p><p>In 1961, HMT partnered with Citizen of Japan to bring watch manufacturing to Bengaluru. Mechanical timekeeping became part of everyday life: a first salary, a graduation, a gift passed from one generation to the next.</p><a class="text-link" href="https://www.hmtwatches.in/" target="_blank" rel="noopener noreferrer">Discover HMT's legacy <span>↗</span></a></div>
+          <div class="india-art reveal" aria-hidden="true"><span class="mono india-art-top">THE MEASURE OF A GENERATION</span><div class="blueprint-watch"><div class="blueprint-strap"></div><div class="blueprint-case"><div class="blueprint-ticks"></div><span>HMT<br /><small>MECHANICAL LEGACY</small></span><i></i><b></b></div><div class="blueprint-measure">Ø  PRECISION FOR THE PEOPLE</div></div><div class="india-art-bottom"><span>1961</span><span class="mono">DESIGNED FOR LIFE.<br />REMEMBERED FOR GENERATIONS.</span></div></div>
+        </div>
+      </section>
+
+      <section class="argos section-pad" id="argos" aria-labelledby="argos-heading">
+        <div class="section-top reveal"><span class="eyebrow">04 — THE NEW CHAPTER</span><span class="mono muted">SURAT, INDIA · EST. 2022</span></div>
+        <div class="argos-intro reveal"><span class="argos-wordmark">ARGOS<span>WATCHES</span></span><h2 id="argos-heading">The story didn't end.<br /><em>It changed hands.</em></h2><p>A new generation of Indian watchmaking.<br />Rooted in curiosity. Driven by possibility.</p></div>
+        <div class="argos-cards">
+          <article class="product-card reveal"><div class="product-card-top mono"><span>THE REFINED EXPRESSION</span><span>01</span></div><div class="product-image product-image--apollo"><img src="/images/apollo.jpg" alt="Argos Apollo III olive green watch with a leather strap worn on the wrist" loading="lazy" width="900" height="900" /><a href="https://www.argoswatch.in/collections/apollo3" target="_blank" rel="noopener noreferrer" class="product-explore circle-arrow" aria-label="Explore the Apollo III collection">↗</a></div><div class="product-info"><div><span class="eyebrow">APOLLO COLLECTION</span><h3>Understated. Unmistakable.</h3></div><span class="mono">AUTOMATIC</span></div><p>A dress-oriented expression of mechanical watchmaking. Thoughtful details, an effortless presence.</p></article>
+          <article class="product-card reveal"><div class="product-card-top mono"><span>THE BOLD NEW PERSPECTIVE</span><span>02</span></div><div class="product-image product-image--olympus"><img src="/images/olympus.jpg" alt="Argos Olympus mechanical watch with a white dial and steel case" loading="lazy" width="900" height="900" /><a href="https://www.argoswatch.in/collections/olympus-ii" target="_blank" rel="noopener noreferrer" class="product-explore circle-arrow" aria-label="Explore the Olympus II collection">↗</a></div><div class="product-info"><div><span class="eyebrow">OLYMPUS COLLECTION</span><h3>Built for your next chapter.</h3></div><span class="mono">AUTOMATIC</span></div><p>A bolder design language, with the Olympus II powered by Japanese Miyota automatic movements.</p></article>
+        </div>
+        <div class="argos-values reveal"><div><span class="mono">01 / THE IDENTITY</span><h4>Indian by design.</h4><p>Design and assembly in India, with selected components sourced globally.</p></div><div><span class="mono">02 / THE PHILOSOPHY</span><h4>Craft, within reach.</h4><p>Direct-to-consumer mechanical watches, making ownership more accessible.</p></div><div><span class="mono">03 / THE CONNECTION</span><h4>Made to be yours.</h4><p>A personal object, designed to accompany the moments that matter.</p></div></div>
+        <div class="argos-link-wrap reveal"><a class="button-outline" href="https://www.argoswatch.in/" target="_blank" rel="noopener noreferrer">Explore the world of Argos <span>↗</span></a></div>
+      </section>
+
+      <section class="closing section-pad" aria-labelledby="closing-heading">
+        <span class="eyebrow reveal">THE CONTINUUM IS YOU</span><h2 class="reveal" id="closing-heading">Some things don't<br />just tell time.<br /><em>They carry it.</em></h2><div class="closing-bottom reveal"><p>From the hands that make it,<br />to the wrist that gives it meaning.</p><a class="circle-link" href="#home"><span class="circle-arrow">↑</span><span>Begin again<span class="mono">THE STORY CONTINUES</span></span></a></div><span class="closing-orbit" aria-hidden="true"></span>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-top"><a class="brand" href="#home"><svg class="brand-symbol" viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13"/><path d="M16 3v5m0 16v5M3 16h5m16 0h5M16 10v6l5 3"/></svg><span>CONTINUUM<span class="brand-sub">OF TIME</span></span></a><p>A study in heritage. An ode to what comes next.</p><a href="#sources" class="text-link">Research & sources <span>↗</span></a></div>
+      <details id="sources" class="sources"><summary class="mono">THE ARCHIVE / RESEARCH & CREDITS <span>+</span></summary><div class="sources-content"><p>An independent editorial and design exploration. The 3D watch is an original conceptual interpretation. Product photographs and Argos names belong to Argos Watches; collection links lead to their official store. The mountain landscape is illustrative, not documentary photography of the Jura.</p><ul><li><a href="https://www.fhs.swiss/eng/origins.html" target="_blank" rel="noopener noreferrer">Federation of the Swiss Watch Industry — Historical origins ↗</a></li><li><a href="https://www.fhs.swiss/eng/swissmade.html" target="_blank" rel="noopener noreferrer">Federation of the Swiss Watch Industry — Swiss Made ↗</a></li><li><a href="https://www.hmtwatches.in/" target="_blank" rel="noopener noreferrer">HMT Watches — Indian watchmaking legacy ↗</a></li><li><a href="https://www.argoswatch.in/pages/about-us" target="_blank" rel="noopener noreferrer">Argos Watches — The brand's founding purpose ↗</a></li><li><a href="https://www.argoswatch.in/pages/faqs" target="_blank" rel="noopener noreferrer">Argos Watches — Components, movements, and assembly ↗</a></li><li><a href="https://inc42.com/company/argos-watches/" target="_blank" rel="noopener noreferrer">Inc42 — Argos founding year ↗</a></li><li><a href="https://www.argoswatch.in/blogs/news/why-india-was-once-the-worlds-largest-timepiece-consumer" target="_blank" rel="noopener noreferrer">Argos — Editorial on India's watchmaking history ↗</a></li><li><a href="https://edolus.com/" target="_blank" rel="noopener noreferrer">Edolus — Immersive experience reference ↗</a></li><li><a href="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b" target="_blank" rel="noopener noreferrer">Illustrative mountain landscape — Unsplash ↗</a></li></ul><p>Swiss heritage is presented as historical context. Argos is an Indian brand using globally sourced components; this experience makes no claim that its watches are Swiss Made.</p></div></details>
+      <div class="footer-bottom mono"><span>© <span id="copyright-year">2026</span> CONTINUUM OF TIME</span><span>SWISS HERITAGE. INDIAN SPIRIT. HUMAN CONNECTION.</span><a href="https://github.com/loharswapnil807-source/Watch" target="_blank" rel="noopener noreferrer">BUILT WITH PRECISION ↗</a></div>
+    </footer>
+    <div class="page-progress" aria-hidden="true"><div id="page-progress-bar"></div></div>
+    <noscript><style>.loader{display:none}.reveal{opacity:1;transform:none}.mechanics{height:auto}.mechanics-sticky{position:relative}</style><div class="noscript-notice">The history and product links are available below. Enable JavaScript for the interactive watch experience.</div></noscript>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
