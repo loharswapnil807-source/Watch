@@ -19,8 +19,8 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
   container.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(anatomy ? 36 : 33, 1, .1, 50);
-  camera.position.set(0, 0, anatomy ? 11 : 12.4);
+  const camera = new THREE.PerspectiveCamera(anatomy ? 34 : 33, 1, .1, 50);
+  camera.position.set(0, 0, anatomy ? 13 : 12.4);
   const pmrem = new THREE.PMREMGenerator(renderer);
   const room = new RoomEnvironment();
   const environment = pmrem.fromScene(room, .04, .1, 100, { size: 128 });
@@ -37,9 +37,9 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
   const rim = new THREE.DirectionalLight('#c4b28b', 1.6);
   rim.position.set(-3, 1, -5); scene.add(rim);
 
-  const watch = createWatch({ compact: anatomy });
+  const watch = createWatch({ compact: anatomy, linearExploded: anatomy });
   scene.add(watch.group);
-  watch.group.rotation.set(anatomy ? -.46 : .15, anatomy ? .76 : -.35, anatomy ? -.18 : -.36);
+  watch.group.rotation.set(anatomy ? .04 : .15, anatomy ? .18 : -.35, anatomy ? -.04 : -.36);
   let width = 0;
   let height = 0;
   let targetExplosion = 0;
@@ -60,7 +60,7 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
     camera.aspect = width / height;
     camera.updateProjectionMatrix();
     const mobile = window.innerWidth <= 560;
-    camera.position.z = anatomy ? (mobile ? 11.2 : 11) : (mobile ? 12.7 : 12.4);
+    camera.position.z = anatomy ? (mobile ? 14.3 : 13) : (mobile ? 12.7 : 12.4);
     watch.group.scale.setScalar(anatomy ? (mobile ? .82 : 1) : 1);
   }
   const resizeObserver = new ResizeObserver(resize);
@@ -99,11 +99,21 @@ export function createWatchScene(container, { anatomy = false, reducedMotion = f
     currentExplosion = reducedMotion ? targetExplosion : THREE.MathUtils.damp(currentExplosion, targetExplosion, 7, delta);
     if (Math.abs(targetExplosion - currentExplosion) < .0001) currentExplosion = targetExplosion;
     watch.setExplosion(currentExplosion);
-    if (anatomy) container.dataset.layerSeparation = (watch.layers.crystal.position.z - watch.layers.caseback.position.z).toFixed(3);
     if (anatomy) {
-      watch.group.rotation.x = -.46 + currentExplosion * .09;
-      watch.group.rotation.y = .76 + currentExplosion * .13 + pointerX;
-      watch.group.rotation.z = -.18;
+      const crystalPosition = watch.layers.crystal.position;
+      const backPosition = watch.layers.caseback.position;
+      container.dataset.layerSeparation = crystalPosition.distanceTo(backPosition).toFixed(3);
+    }
+    if (anatomy) {
+      watch.group.rotation.x = .04 + pointerY;
+      watch.group.rotation.y = .18 + pointerX;
+      watch.group.rotation.z = -.04;
+      // Pull back just enough to fit every component; retain a large assembled watch.
+      const horizontalFov = 2 * Math.atan(Math.tan(camera.fov * Math.PI / 360) * camera.aspect);
+      const fitDistance = (6.8 * watch.group.scale.x) / Math.tan(horizontalFov / 2);
+      const baseDistance = window.innerWidth <= 560 ? 11.5 : 11;
+      camera.position.z = THREE.MathUtils.lerp(baseDistance, Math.max(baseDistance, fitDistance), currentExplosion);
+      container.dataset.movementSeparation = watch.layers.rotor.position.distanceTo(watch.layers.movement.position).toFixed(3);
     } else {
       watch.group.rotation.x = .15 + pointerY + (reducedMotion ? 0 : Math.sin(elapsed * .4) * .025);
       watch.group.rotation.y = -.35 + pointerX + (reducedMotion ? 0 : Math.sin(elapsed * .25) * .045);

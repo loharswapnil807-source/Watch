@@ -41,9 +41,10 @@ requestAnimationFrame(loadingFrame);
 
 // Loading the 3D engine is optional: history and navigation are fully HTML.
 import('./watch-scene.js').then(({ createWatchScene }) => {
-  heroScene = createWatchScene($('#hero-watch-stage'), { reducedMotion });
   engineReady = true;
-  // Build the second watch only when the visitor approaches its chapter.
+  // The real product image leads; keep a quiet 3D layer behind it for depth and hover.
+  heroScene = createWatchScene($('#hero-watch-stage'), { reducedMotion });
+  // Build the exploded movement only when the visitor approaches its chapter.
   const anatomyObserver = new IntersectionObserver(entries => {
     if (entries.some(entry => entry.isIntersecting) && !anatomyScene) {
       anatomyScene = createWatchScene($('#anatomy-stage'), { anatomy: true, reducedMotion });
@@ -56,8 +57,19 @@ import('./watch-scene.js').then(({ createWatchScene }) => {
 }).catch(error => {
   console.info('Using the lightweight watch illustration.', error);
   engineLoadFailed = true;
-  $('#hero-watch-stage').classList.add('no-webgl');
   $('#anatomy-stage').classList.add('no-webgl');
+});
+
+const productStage = $('#hero-watch-stage');
+productStage.addEventListener('pointermove', event => {
+  if (reducedMotion || event.pointerType === 'touch') return;
+  const bounds = productStage.getBoundingClientRect();
+  productStage.style.setProperty('--watch-tilt-x', `${((event.clientY - bounds.top) / bounds.height - .5) * -6}deg`);
+  productStage.style.setProperty('--watch-tilt-y', `${((event.clientX - bounds.left) / bounds.width - .5) * 8}deg`);
+});
+productStage.addEventListener('pointerleave', () => {
+  productStage.style.setProperty('--watch-tilt-x', '0deg');
+  productStage.style.setProperty('--watch-tilt-y', '0deg');
 });
 
 const revealObserver = new IntersectionObserver(entries => {

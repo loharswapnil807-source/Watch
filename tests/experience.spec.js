@@ -101,7 +101,7 @@ test('mobile menu, focus recovery, local photographs, and layout remain usable',
   await expect.poll(() => page.locator('.argos-cards img').evaluateAll(images => images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth + 1);
   expect(overflow).toBe(false);
-  await expect(page.locator('a[href="https://www.argoswatch.in/collections/olympus-ii"]').first()).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(page.locator('a[href="https://www.argoswatch.in/products/olympus-ii-gemora-emerald-green-gold"]').first()).toHaveAttribute('rel', 'noopener noreferrer');
 });
 
 test('reduced-motion and unavailable WebGL preserve content and controls', async ({ page }) => {

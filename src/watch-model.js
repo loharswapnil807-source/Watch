@@ -134,7 +134,7 @@ function hand(length, width, material) {
   return new THREE.Mesh(new THREE.ExtrudeGeometry(shape, { depth: .018, bevelEnabled: true, bevelSize: .005, bevelThickness: .004, bevelSegments: 1 }), material);
 }
 
-export function createWatch({ compact = false } = {}) {
+export function createWatch({ compact = false, linearExploded = false } = {}) {
   const group = new THREE.Group();
   const steel = new THREE.MeshStandardMaterial({ color: '#d0d4cb', metalness: 1, roughness: .22 });
   const brushed = new THREE.MeshStandardMaterial({ color: '#9da99f', metalness: .92, roughness: .4 });
@@ -145,7 +145,7 @@ export function createWatch({ compact = false } = {}) {
   const ruby = new THREE.MeshStandardMaterial({ color: '#7c2544', metalness: .3, roughness: .15 });
 
   const layers = {};
-  for (const name of ['caseback', 'case', 'movement', 'dial', 'hands', 'bezel', 'crystal', 'topBracelet', 'bottomBracelet']) {
+  for (const name of ['caseback', 'case', 'movement', 'gearTrain', 'barrel', 'bridges', 'rotor', 'dial', 'hands', 'bezel', 'crystal', 'topBracelet', 'bottomBracelet']) {
     layers[name] = new THREE.Group();
     layers[name].name = name;
     group.add(layers[name]);
@@ -206,18 +206,18 @@ export function createWatch({ compact = false } = {}) {
   specs.forEach(([x, y, r, teeth], index) => {
     const wheel = gear(r, teeth, index % 2 ? brass : gold);
     wheel.position.set(x, y, .03 + index % 2 * .04);
-    layers.movement.add(wheel);
+    layers.gearTrain.add(wheel);
     gears.push(wheel);
     const axle = disk(.035, .11, polished, .1);
     axle.position.set(x, y, .1);
-    layers.movement.add(axle);
+    layers.gearTrain.add(axle);
     const jewel = disk(.045, .025, ruby, .155);
     jewel.position.set(x, y, .155);
-    layers.movement.add(jewel);
+    layers.gearTrain.add(jewel);
   });
   const balance = ring(.33, .29, .035, gold);
   balance.position.set(-.74, -.66, .13);
-  layers.movement.add(balance);
+  layers.gearTrain.add(balance);
   const spiralPoints = [];
   for (let i = 0; i <= 160; i++) {
     const a = i / 160 * Math.PI * 12;
@@ -225,15 +225,26 @@ export function createWatch({ compact = false } = {}) {
     spiralPoints.push(new THREE.Vector3(-.74 + Math.cos(a) * r, -.66 + Math.sin(a) * r, .155));
   }
   const hairspring = new THREE.Line(new THREE.BufferGeometry().setFromPoints(spiralPoints), new THREE.LineBasicMaterial({ color: '#a6bfc0' }));
-  layers.movement.add(hairspring);
+  layers.gearTrain.add(hairspring);
+  // A separate barrel and visible coiled mainspring for the exploded movement.
+  const barrel = ring(.38, .32, .13, brushed);
+  barrel.position.set(.64, -.62, .03);
+  layers.barrel.add(barrel);
+  const springPoints = [];
+  for (let i = 0; i <= 220; i++) {
+    const a = i / 220 * Math.PI * 16;
+    const r = .035 + i / 220 * .27;
+    springPoints.push(new THREE.Vector3(.64 + Math.cos(a) * r, -.62 + Math.sin(a) * r, .11));
+  }
+  layers.barrel.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(springPoints), new THREE.LineBasicMaterial({ color: '#cfdbcc' })));
   const bridge1 = roundedBox(1.45, .23, .07, brushed, .09);
   bridge1.position.set(.14, .27, .16);
   bridge1.rotation.z = -.5;
-  layers.movement.add(bridge1);
+  layers.bridges.add(bridge1);
   const bridge2 = roundedBox(.98, .17, .06, steel, .06);
   bridge2.position.set(-.4, -.31, .17);
   bridge2.rotation.z = .55;
-  layers.movement.add(bridge2);
+  layers.bridges.add(bridge2);
   const screws = [];
   for (const [x, y] of [[-.8, .96], [.77, .91], [.93, -.65], [-.96, -.64], [-.46, .55], [.7, .04], [-.78, -.54]]) {
     const screw = new THREE.Group();
@@ -243,7 +254,7 @@ export function createWatch({ compact = false } = {}) {
     slot.rotation.z = x;
     screw.add(slot);
     screw.position.set(x, y, .22);
-    layers.movement.add(screw);
+    layers.bridges.add(screw);
     screws.push(screw);
   }
   const rotorShape = new THREE.Shape();
@@ -252,7 +263,7 @@ export function createWatch({ compact = false } = {}) {
   rotorShape.closePath();
   const rotor = new THREE.Mesh(new THREE.ExtrudeGeometry(rotorShape, { depth: .04, bevelEnabled: true, bevelSize: .015, bevelThickness: .015, bevelSegments: 2, curveSegments: 50 }), brass);
   rotor.position.z = .18;
-  layers.movement.add(rotor);
+  layers.rotor.add(rotor);
 
   // Printed sunburst dial plus applied indices, rather than a flat watch image.
   const texture = dialTexture();
@@ -328,17 +339,49 @@ export function createWatch({ compact = false } = {}) {
   }
 
   let explosion = 0;
+  const easedPhase = (v, start, end) => {
+    const p = THREE.MathUtils.clamp((v - start) / (end - start), 0, 1);
+    return p * p * (3 - 2 * p);
+  };
+  const linearPositions = {
+    crystal: [-5.5, 0, .1, 0],
+    bezel: [-4.45, 0, .1, .01],
+    hands: [-3.5, 0, .12, .04],
+    dial: [-3.1, 0, .08, .04],
+    movement: [-1.8, 0, 0, .10],
+    gearTrain: [-.5, 0, .12, .13],
+    barrel: [.9, .4, .08, .14],
+    bridges: [2.0, 0, .08, .15],
+    rotor: [3.3, 0, .08, .13],
+    caseback: [4.55, 0, 0, .08],
+    case: [5.6, 0, 0, .02],
+    topBracelet: [5.6, 1.7, -.2, .02],
+    bottomBracelet: [5.6, -1.7, -.2, .02],
+  };
   function setExplosion(value) {
     explosion = THREE.MathUtils.clamp(value, 0, 1);
-    layers.crystal.position.set(0, .10 * explosion, 2.4 * explosion);
-    layers.bezel.position.set(0, .06 * explosion, 1.85 * explosion);
-    layers.hands.position.set(0, 0, 1.28 * explosion);
-    layers.dial.position.set(0, 0, .9 * explosion);
-    layers.movement.position.set(0, 0, -.08 * explosion);
-    layers.case.position.set(0, 0, -.70 * explosion);
-    layers.caseback.position.set(0, 0, -1.65 * explosion);
-    layers.topBracelet.position.set(0, .3 * explosion, -.70 * explosion);
-    layers.bottomBracelet.position.set(0, -.3 * explosion, -.70 * explosion);
+    if (linearExploded) {
+      Object.entries(linearPositions).forEach(([name, position]) => {
+        const phase = easedPhase(explosion, position[3], 1);
+        layers[name].position.set(position[0] * phase, position[1] * phase, position[2] * phase);
+        // Rotate the plates into a three-quarter side view as they separate.
+        layers[name].rotation.y = -.98 * phase;
+      });
+    } else {
+      layers.crystal.position.set(0, .10 * explosion, 2.4 * explosion);
+      layers.bezel.position.set(0, .06 * explosion, 1.85 * explosion);
+      layers.hands.position.set(0, 0, 1.28 * explosion);
+      layers.dial.position.set(0, 0, .9 * explosion);
+      layers.movement.position.set(0, 0, -.08 * explosion);
+      layers.case.position.set(0, 0, -.70 * explosion);
+      layers.caseback.position.set(0, 0, -1.65 * explosion);
+      layers.topBracelet.position.set(0, .3 * explosion, -.70 * explosion);
+      layers.bottomBracelet.position.set(0, -.3 * explosion, -.70 * explosion);
+      layers.gearTrain.position.z = .45 * explosion;
+      layers.barrel.position.z = .70 * explosion;
+      layers.bridges.position.z = 1.05 * explosion;
+      layers.rotor.position.z = 1.40 * explosion;
+    }
     gears.forEach((g, i) => { g.position.z = .03 + i % 2 * .04 + explosion * (i % 2 ? .15 : .04); });
     screws.forEach(s => { s.position.z = .22 + explosion * .28; });
   }

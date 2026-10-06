@@ -34,17 +34,17 @@ export const milestones = {
 export const mechanicsChapters = [
   {
     label: '001 / THE COMPLETE OBJECT',
-    description: 'A mechanical watch is a tiny universe in perfect balance. Scroll to lift the crystal, separate the dial, and discover the movement at its heart.',
+    description: 'A mechanical watch is a tiny universe in perfect balance. Scroll to open it into a horizontal assembly of crystal, dial, plates, gears, spring barrel, and rotor.',
     component: 0,
   },
   {
     label: '002 / BEAUTY, OPENED UP',
-    description: 'The crystal rises. The bezel, hands, and dial follow. Every layer has a purpose: to protect, to express, and to give precision a face.',
+    description: 'The crystal, bezel, and dial slide apart. The watch turns into a three-quarter view, revealing the plates and wheels that live beneath its face.',
     component: 1,
   },
   {
     label: '003 / THE HEART OF THE MATTER',
-    description: 'Beneath the dial, a spring stores energy. Gears carry it. A balance and escapement measure it. A quiet conversation between beautifully precise parts.',
+    description: 'The main plate, wheel train, coiled mainspring, bridges, and winding rotor separate in sequence. Each part remains suspended on a shared assembly axis.',
     component: 2,
   },
   {
