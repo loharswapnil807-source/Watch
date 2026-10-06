@@ -57,6 +57,7 @@ import('./watch-scene.js').then(({ createWatchScene }) => {
 }).catch(error => {
   console.info('Using the lightweight watch illustration.', error);
   engineLoadFailed = true;
+  $('#hero-watch-stage').classList.add('no-webgl');
   $('#anatomy-stage').classList.add('no-webgl');
 });
 
@@ -165,6 +166,11 @@ let scrollFrame = 0;
 function updateMechanics(explosion, progress) {
   anatomyScene?.setExplosion(explosion);
   $('#anatomy-stage').style.setProperty('--explosion', explosion);
+  $('#anatomy-stage').style.setProperty('--real-watch-opacity', Math.max(0, 1 - explosion * 2));
+  $('#anatomy-stage').style.setProperty('--real-watch-x', `${explosion * -18}px`);
+  $('#anatomy-stage').style.setProperty('--real-watch-y', `${explosion * -12}px`);
+  $('#anatomy-stage').style.setProperty('--real-watch-rotation', `${explosion * -12}deg`);
+  $('#anatomy-stage').style.setProperty('--real-watch-scale', `${1 - explosion * .12}`);
   const chapter = Math.min(3, Math.floor(progress * 4));
   if (chapter !== previousChapter) {
     previousChapter = chapter;

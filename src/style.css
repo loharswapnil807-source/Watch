@@ -123,7 +123,7 @@ h1 em { display: inline-block; margin-top: 5px; letter-spacing: -3.5px; }
 a:hover .circle-arrow, a.circle-arrow:hover { background: var(--gold); color: var(--bg); transform: rotate(-12deg); }
 .hero-watch-stage { position: absolute; right: -1%; top: 13%; width: 63%; height: 77%; }
 .hero-watch-stage canvas, .anatomy-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 2; touch-action: pan-y; }
-.hero-watch-stage canvas { opacity: .11; }
+.hero-watch-stage canvas { opacity: 0; }
 .hero-watch-stage { perspective: 1000px; }
 .hero-watch-stage.has-webgl .watch-fallback { display: none; }
 .hero-product-watch { position: absolute; z-index: 3; right: 7%; top: -2%; width: 62%; height: 101%; object-fit: contain; filter: drop-shadow(0 28px 34px rgba(0, 0, 0, .36)); transform: rotateX(var(--watch-tilt-x, 0deg)) rotateY(var(--watch-tilt-y, 0deg)) rotateZ(-16deg); transition: transform .65s ease, filter .5s ease; animation: product-float 7s ease-in-out infinite; pointer-events: none; }
@@ -227,6 +227,10 @@ h2 { font-size: clamp(40px, 4.3vw, 68px); font-weight: 400; line-height: 1.1; le
 .assembly-track { height: 1px; background: var(--line); max-width: 345px; margin-top: 11px; }
 #assembly-bar { width: 100%; height: 100%; background: var(--gold); }
 .anatomy-stage { height: 100%; min-height: 420px; position: relative; }
+.real-anatomy-watch { position: absolute; z-index: 3; inset: 4% 23% 6%; display: flex; align-items: center; justify-content: center; opacity: var(--real-watch-opacity, 1); transform: translate3d(var(--real-watch-x, 0px), var(--real-watch-y, 0px), 0) rotate(var(--real-watch-rotation, 0deg)) scale(var(--real-watch-scale, 1)); transition: opacity .12s linear, transform .12s linear; pointer-events: none; }
+.real-anatomy-watch img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 26px 28px #0008); }
+.real-anatomy-watch span { position: absolute; bottom: -10px; right: -18%; color: #9aa78d; font-size: 6px; letter-spacing: 1.4px; }
+.anatomy-stage.has-webgl .watch-fallback { display: none; }
 .anatomy-orbit { position: absolute; width: 83%; aspect-ratio: 1; top: 50%; left: 50%; transform: translate(-50%, -50%); border: 1px solid #c6b38a17; border-radius: 50%; }
 .anatomy-orbit::after { content: ''; position: absolute; inset: 8%; border: 1px dashed #c6b38a19; border-radius: 50%; }
 .anatomy-caption { position: absolute; top: 22px; right: 0; font-size: 7px; color: #727c67; z-index: 3; }
